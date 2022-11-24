@@ -35,6 +35,19 @@ async function printNotes() {
   })
 }
 
+async function renameNote(newNote) {
+  const notes = await getNotes()
+
+  const item = notes.find(item=>item.id===newNote.id)
+  const oldName = item.title
+
+  if(item){
+    item.title = newNote.title
+    await saveNotes(notes)
+    console.log(chalk.red(`Note with id="${newNote.id}" has been renamed from ${oldName} on ${newNote.title}.`))
+  }
+}
+
 async function removeNote(id) {
   const notes = await getNotes()
 
@@ -45,5 +58,5 @@ async function removeNote(id) {
 }
 
 module.exports = {
-  addNote, getNotes, removeNote
+  addNote, getNotes, removeNote,renameNote
 }
